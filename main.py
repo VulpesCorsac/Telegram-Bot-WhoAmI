@@ -4,13 +4,14 @@ from secrets import Secrets
 
 bot = telebot.TeleBot(Secrets['bot_api_token'])
 
-bot.set_my_name('WhoAmI')
-bot.set_my_short_description('This bot will send you back your telegram information')
-bot.set_my_description('This bot will send you back your telegram information: id, name, surname, language, premium...')
-bot.set_my_commands([
-    telebot.types.BotCommand('/start', 'Greet user with his tg name'),
-    telebot.types.BotCommand('/who_am_i', 'Print user information'),
-])
+if Secrets['need_update_info']:
+    bot.set_my_name('WhoAmI')
+    bot.set_my_short_description('This bot will send you back your telegram information')
+    bot.set_my_description('This bot will send you back your telegram information: id, name, surname, language...')
+    bot.set_my_commands([
+        telebot.types.BotCommand('/start', 'Greet user with his tg name'),
+        telebot.types.BotCommand('/who_am_i', 'Print user information'),
+    ])
 
 
 @bot.message_handler(commands=['start'])
